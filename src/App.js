@@ -7,11 +7,12 @@
  */
 
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, Platform} from 'react-native';
 import {Toolbar, Subheader, Button} from 'react-native-material-ui';
 import * as Colors from './colors';
-import CheckBox from '@react-native-community/checkbox';
-
+// import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'react-native-check-box';
+const {OS} = Platform;
 function App() {
   const [check, setCheck] = React.useState(false);
   React.useEffect(() => {
@@ -22,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, marginTop: 20}}>
       <Toolbar
         centerElement="Privacy"
         style={{
@@ -65,10 +66,13 @@ function App() {
           <View style={styles.chkBoxText}>
             <View style={{flexDirection: 'row'}}>
               <CheckBox
-                style={{backgroundColor: 'red'}}
-                value={true}
+                style={{}}
                 disabled={false}
-                onValueChange={value => setCheck(value)}
+                onClick={() => {
+                  check ? setCheck(false) : setCheck(true);
+                }}
+                isChecked={check}
+                // onValueChange={value => setCheck(value)}
               />
               <Text style={{width: '90%', marginLeft: 10}}>
                 I agree to the
@@ -77,33 +81,62 @@ function App() {
                 <Text style={styles.blueText}> Medical Disclaimer</Text>
               </Text>
             </View>
-            <Button
-              style={{
-                container: [
-                  styles.signUpContainer,
-                  check ? {opacity: 1} : {opacity: 0.7},
-                ],
-                text: {color: 'white'},
-              }}
-              text="SIGN UP"
-              onPress={() =>
-                check ? alert('Sign up') : alert('Please select terms')
-              }
-            />
-
-            <Button
-              style={{
-                container: [
-                  styles.loginContainer,
-                  check ? {opacity: 1} : {opacity: 0.5},
-                ],
-                text: {color: '#00C7FC'},
-              }}
-              text="LOG IN"
-              onPress={() =>
-                check ? alert('Log in') : alert('Please select terms')
-              }
-            />
+            <View>
+              <Button
+                style={{
+                  container: [
+                    styles.signUpContainer,
+                    check ? {opacity: 1} : {opacity: 0.7},
+                  ],
+                  text: {color: 'white'},
+                }}
+                text="SIGN UP"
+                onPress={() =>
+                  check ? alert('Sign up') : alert('Please select terms')
+                }
+              />
+              {OS == 'ios' ? (
+                <Text
+                  style={{
+                    color: 'white',
+                    position: 'absolute',
+                    alignSelf: 'center',
+                    top: 33,
+                  }}>
+                  SIGN UP
+                </Text>
+              ) : (
+                <></>
+              )}
+            </View>
+            <View>
+              <Button
+                style={{
+                  container: [
+                    styles.loginContainer,
+                    check ? {opacity: 1} : {opacity: 0.5},
+                  ],
+                  text: {color: '#00C7FC'},
+                }}
+                text="LOG IN"
+                onPress={() =>
+                  check ? alert('Log in') : alert('Please select terms')
+                }
+              />
+              {OS == 'ios' ? (
+                <Text
+                  style={{
+                    color: '#00C7FC',
+                    position: 'absolute',
+                    alignSelf: 'center',
+                    top: 25,
+                  }}>
+                  LOG IN
+                </Text>
+              ) : (
+                <></>
+              )}
+            </View>
           </View>
         </View>
       </View>
