@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import { Header, CustomButton } from "./components"
 import * as Colors from "./colors"
-import { CheckBox } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 
 function App() {
     const [text, setText] = React.useState("")
